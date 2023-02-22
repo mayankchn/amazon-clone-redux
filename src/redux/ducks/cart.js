@@ -1,5 +1,5 @@
 import produce from "immer";
-import { ADD_TO_CART } from "../../actions/cart";
+import { ADD_TO_CART, DEC_CART, DEL_CART, INC_CART } from "../../actions/cart";
 
 const initialState = {
     cart: {}
@@ -11,7 +11,25 @@ const cartReducer = (state = initialState, action) => {
             return produce(state, (draft) => {
                 const { id, quantity } = action.payload
                 const prevQuantity = draft.cart[id] || 0
-                draft.cart = {...draft.cart, [id]: prevQuantity + quantity }
+                draft.cart = { ...draft.cart, [id]: prevQuantity + quantity }
+            })
+        case INC_CART:
+            return produce(state, (draft) => {
+                const id = action.payload
+                const prevQuantity = draft.cart[id] || 0
+                draft.cart = { ...draft.cart, [id]: prevQuantity + 1 }
+            })
+        case DEC_CART:
+            return produce(state, (draft) => {
+                const id = action.payload
+                const prevQuantity = draft.cart[id] || 0
+                draft.cart = { ...draft.cart, [id]: prevQuantity - 1 }
+            })
+        case DEL_CART : 
+            return produce(state,(draft)=>{
+                const id = action.payload
+                delete draft.cart[id]
+                return draft
             })
         default:
             return state;
