@@ -33,4 +33,3 @@ export const deleteCartAction = (p_id) => {
         payload: p_id
     }
 }
-

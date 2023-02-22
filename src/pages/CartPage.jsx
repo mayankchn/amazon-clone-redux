@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { current } from "immer";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { getProduct } from "../api";
 import CartList from "../components/CartList";
@@ -24,8 +25,7 @@ const CartPage = () => {
     */
 
     const [loading,setLoading] = useState(true)
-
-    const [localCart, setLocalCart] = useState({})
+    const [localCart, setLocalCart] = useState([])
 
     useEffect(() => {
         const promise = Object.keys(cart).map((id) => {
@@ -38,8 +38,13 @@ const CartPage = () => {
             setLoading(false)
         })
     }, [cart])
+    // console.log('cart items ', localCart)
 
-    console.log('cart items ', localCart)
+    const subtotal = localCart.reduce((output,current)=>{
+            // console.log('output and current ',output,current)
+            return output+cart[current.id]*current.price
+        },0)
+    // console.log('subtotal is ',subtotal)
 
     if(loading){
         return (
@@ -56,7 +61,7 @@ const CartPage = () => {
     return (
         <section>
             <div className="container max-w-screen-2xl px-4 py-5">
-                {<CartList cartProducts={localCart} />}
+                {<CartList cartProducts={localCart} subtotal={subtotal} />}
             </div>
         </section>
     )
