@@ -1,11 +1,17 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { getProduct } from "../api";
 import CartList from "../components/CartList";
 import EmptyCart from "../components/EmptyCart";
 import { cartSelector } from "../selectors/cart";
 import { productsMapStateSelector } from "../selectors/products";
+import LoadingPage from "./LoadingPage";
 
 const CartPage = () => {
+    
     const cart = useSelector(cartSelector)
+
+   /* 
     // console.log('cart ',cart)
 
     const productsMap = useSelector(productsMapStateSelector)
@@ -15,8 +21,33 @@ const CartPage = () => {
         return productsMap[id]
     })
     // console.log('cart products ',cartProducts)
+    */
 
-    if (cartProducts.length < 1) {
+    const [loading,setLoading] = useState(true)
+
+    const [localCart, setLocalCart] = useState({})
+
+    useEffect(() => {
+        const promise = Object.keys(cart).map((id) => {
+            return getProduct(id).then((response) => {
+                return response
+            })
+        })
+        Promise.all(promise).then((response) => {
+            setLocalCart(response)
+            setLoading(false)
+        })
+    }, [cart])
+
+    console.log('cart items ', localCart)
+
+    if(loading){
+        return (
+            <LoadingPage />
+        )
+    }
+
+    if (localCart.length < 1) {
         return (
             <EmptyCart />
         )
@@ -25,7 +56,7 @@ const CartPage = () => {
     return (
         <section>
             <div className="container max-w-screen-2xl px-4 py-5">
-                {<CartList cartProducts={cartProducts} />}
+                {<CartList cartProducts={localCart} />}
             </div>
         </section>
     )
