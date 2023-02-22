@@ -14,10 +14,12 @@ const Header = () => {
                 {/* <div className="w-24 h-7">
                 <img src="/amazon-logo.png" alt="" className="w-full h-full object-cover aspect-square" />
             </div> */}
-                <p className="text-white font-bold">
-                    <span className="text-2xl">amazon</span>
-                    <span className="text-xs">.in</span>
-                </p>
+                <Link to="/">
+                    <p className="text-white font-bold">
+                        <span className="text-2xl">amazon</span>
+                        <span className="text-xs">.in</span>
+                    </p>
+                </Link>
                 <div className="flex gap-5">
                     <div className="text-white font-xl flex gap-1 items-center">
                         <p className="text-xs font-bold">Sign in</p>

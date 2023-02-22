@@ -1,4 +1,22 @@
-const CartItem = ({ product }) => {
+import { useDispatch } from "react-redux";
+import { decrementCartAction, deleteCartAction, incrementCartAction } from "../actions/cart";
+
+const CartItem = ({ product, quantity }) => {
+
+    const dispatch = useDispatch()
+
+    const handleQuantityInc = () => {
+        dispatch(incrementCartAction(product.id))
+    }
+
+    const handleQuantityDec = () => {
+        dispatch(decrementCartAction(product.id))
+    }
+
+    const handleDelete = () => {
+        dispatch(deleteCartAction(product.id))
+    }
+
     return (
         <div className="container flex gap-2 sm:gap-5">
             <div className="first-container flex flex-col gap-5 items-center w-1/2 sm:w-1/3">
@@ -6,9 +24,28 @@ const CartItem = ({ product }) => {
                     <img src={product.thumbnail} alt={product.title} className="w-full h-full aspect-square object-cover" />
                 </div>
                 <div className="flex justify-between gap-2">
-                    <button className="border px-4 py-1 rounded bg-gray-300 font-bold text-black text-xl">-</button>
-                    <input type="number" className="border w-1/3" />
-                    <button className="border px-4 py-1 rounded bg-gray-300 font-bold text-black text-xl">+</button>
+                    {quantity > 1  ? <button
+                        className="border px-4 py-1 rounded bg-gray-300 font-bold text-black text-xl"
+                        onClick={handleQuantityDec}
+                    >
+                        -
+                    </button> : <button
+                        className="border px-4 py-1 rounded bg-gray-300 font-bold text-black text-xl"
+                        onClick={handleDelete}
+                    >
+                        x
+                    </button> }
+                    <span
+                        className="border px-4 py-1 rounded font-bold text-gray-500 text-xl"
+                    >
+                        {quantity}
+                    </span>
+                    <button
+                        className="border px-4 py-1 rounded bg-gray-300 font-bold text-black text-xl"
+                        onClick={handleQuantityInc}
+                    >
+                        +
+                    </button>
                 </div>
             </div>
             <div className="flex flex-col gap-1 w-1/2">
