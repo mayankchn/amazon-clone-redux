@@ -6,14 +6,17 @@ const CartItem = ({ product, quantity }) => {
     const dispatch = useDispatch()
 
     const handleQuantityInc = () => {
+        console.log('handle inc...')
         dispatch(incrementCartAction(product.id))
     }
 
     const handleQuantityDec = () => {
+        console.log('handle dec...')
         dispatch(decrementCartAction(product.id))
     }
 
     const handleDelete = () => {
+        console.log('handle delete...')
         dispatch(deleteCartAction(product.id))
     }
 

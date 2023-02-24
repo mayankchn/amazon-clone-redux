@@ -2,9 +2,10 @@ import { useSelector } from "react-redux"
 import { cartSelector } from "../selectors/cart"
 import CartItem from "./CartItem"
 
-const CartList = ({ cartProducts,subtotal }) => {
+const CartList = ({ cartProducts, subtotal }) => {
 
     const cart = useSelector(cartSelector)
+    console.log('cart is ', cart)
 
     return (
         <section>
@@ -17,13 +18,13 @@ const CartList = ({ cartProducts,subtotal }) => {
                     <button className="bg-yellow-300 px-5 py-3 font-semibold rounded">Proceed to Buy</button>
                 </div>
                 <div className="flex flex-col gap-3 order-2 sm:order-1 sm:w-2/3">
-                    {cartProducts && cartProducts.map((product) => {
+                    {subtotal > 0 && cartProducts.map((product) => {
                         return (
-                            <CartItem 
-                            key={product.id} 
-                            product={product} 
-                            quantity={cart[product.id]} 
-                        />
+                            <CartItem
+                                key={product.id}
+                                product={product}
+                                quantity={cart[product.id]}
+                            />
                         )
                     })}
                 </div>

@@ -26,11 +26,10 @@ const cartReducer = (state = initialState, action) => {
                 draft.cart = { ...draft.cart, [id]: prevQuantity - 1 }
             })
         case DEL_CART : 
-            return produce(state,(draft)=>{
-                const id = action.payload
-                delete draft.cart[id]
-                return draft
-            })
+        return produce(state, (draft) => {
+            const id = action.payload
+            draft.cart = {...draft.cart, [id]:0}
+        })
         default:
             return state;
     }
