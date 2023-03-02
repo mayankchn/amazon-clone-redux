@@ -28,7 +28,7 @@ const cartReducer = (state = initialState, action) => {
         case DEL_CART : 
         return produce(state, (draft) => {
             const id = action.payload
-            draft.cart = {...draft.cart, [id]:0}
+            delete draft.cart[id]
         })
         default:
             return state;
