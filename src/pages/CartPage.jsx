@@ -28,11 +28,11 @@ const CartPage = () => {
     const [localCart, setLocalCart] = useState([])
 
     useEffect(() => {
-        const keys = Object.keys(cart).filter((id)=>{
-            return cart[id]!==0;
-        })
-        console.log('filtered keys ',keys)
-        const promise = keys.map((id) => {
+        // const keys = Object.keys(cart).filter((id)=>{
+        //     return cart[id]!==0;
+        // })
+        // console.log('filtered keys ',keys)
+        const promise = Object.keys(cart).map((id) => {
             return getProduct(id).then((response) => {
                 return response
             })

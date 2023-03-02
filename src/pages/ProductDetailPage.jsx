@@ -21,7 +21,7 @@ const ProductDetailPage = () => {
     }
 
     const handleAddToCart = () => {
-        dispatch(addToCartAction(id,+quantity))
+        dispatch(addToCartAction(id, +quantity))
         setQuantity(0)
     }
 
@@ -54,10 +54,10 @@ const ProductDetailPage = () => {
                 <div className="others-container flex flex-col gap-3 order-3 sm:w-1/3">
                     <span className="font-semibold text-4xl">${product.price}</span>
                     <input type="number" className="border rounded-xl px-2 w-20 h-8" placeholder="Qty: 1" value={quantity} onChange={handleQuantityChange} />
-                    <button 
-                    className="font-semibold bg-yellow-500 px-4 py-3 rounded-full disabled:bg-yellow-200" 
-                    disabled={quantity<1}
-                    onClick={handleAddToCart}>Add to Cart</button>
+                    <button
+                        className="font-semibold bg-yellow-500 px-4 py-3 rounded-full disabled:bg-yellow-200"
+                        disabled={quantity < 1}
+                        onClick={handleAddToCart}>Add to Cart</button>
                 </div>
             </div>
         </section>
